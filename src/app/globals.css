@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f4f6fb;
+  --ink: #0e1116;
+  --muted: #5c6573;
+  --surface: #ffffff;
+  --line: #dfe3ee;
+  --accent: #2451f5;
+  --price: #0e1116;
+  --button-bg: #2451f5;
+  --button-fg: #ffffff;
+  --frame: #e7edff;
+  --focus: #2451f5;
+  --selection-fg: #fff;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-price: var(--price);
+  --color-button: var(--button-bg);
+  --color-button-ink: var(--button-fg);
+  --color-frame: var(--frame);
+  --color-focus: var(--focus);
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-instrument);
+}
+
+details:not([open]) > :not(summary) {
+  display: none;
+}
+
+body[data-editing="true"] [data-edit-path] {
+  outline: 1px dashed var(--accent);
+  outline-offset: 4px;
+  cursor: pointer;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--selection-fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes tour {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.swap {
+  animation: rise 280ms ease;
+}
+
+.tour-bar {
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  background: var(--accent);
+  animation: tour 4.8s linear;
+}
+
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap,
+  .tour-bar,
+  .pulse-dot {
+    animation: none;
+  }
+}

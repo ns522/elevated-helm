@@ -1,0 +1,112 @@
+{
+  "promise": "Run your marine dealership from one helm.",
+  "lede": "Buy the modules you need now — sales, service, marketing, and your website. The full operating system is on the way.",
+  "includedLine": "Any paid module includes customers, the boats your customers own, a calendar, and tasks.",
+  "annualNote": "Annual billing is ten months of the monthly price. Two months are included.",
+  "contactEmail": "hello@elevatedhelm.com",
+  "bundlePrice": 1399,
+  "modules": [
+    {
+      "slug": "sales-crm",
+      "name": "Sales CRM",
+      "navLabel": "Sales",
+      "price": 549,
+      "definition": "Sales CRM is the path from a new lead to a sold boat: inventory, quotes, and the customers you already know.",
+      "story": "Work a lead through the inventory, a quote, and the close. The customer record keeps every boat they have owned beside the deal.",
+      "features": [
+        "Leads",
+        "Inventory",
+        "Desking and quotes",
+        "Appraisals",
+        "Consignments and trades",
+        "Events",
+        "Customers and the boats they own"
+      ],
+      "shots": [
+        "/shots/sales-crm-1790459929914.png",
+        "/shots/sales-crm.png"
+      ]
+    },
+    {
+      "slug": "service-crm",
+      "name": "Service CRM",
+      "navLabel": "Service",
+      "price": 549,
+      "definition": "Service CRM runs the service lane: requests, estimates your customer can approve, and the work on the board.",
+      "story": "Take a request, send an estimate the owner can approve, and keep the day visible on the tech workboard.",
+      "features": [
+        "Requests and appointments",
+        "Estimates with customer approval",
+        "Tech workboard",
+        "Follow-ups and reminders",
+        "Forms"
+      ],
+      "shots": [
+        "/shots/service-crm-1790459988833.png"
+      ]
+    },
+    {
+      "slug": "marketing",
+      "name": "Marketing",
+      "navLabel": "Marketing",
+      "price": 399,
+      "definition": "Marketing keeps the brand, the ads, and the social plan in the same place as the boats and the events.",
+      "story": "Write the brand once, then plan ads and social posts around the inventory and events already on the floor.",
+      "features": [
+        "Brand book",
+        "Ads",
+        "Social planning and scheduling",
+        "Event campaigns"
+      ],
+      "shots": [
+        "/shots/marketing-1790460044373.png"
+      ]
+    },
+    {
+      "slug": "website",
+      "name": "Website",
+      "navLabel": "Website",
+      "price": 349,
+      "definition": "Website is the public site for your inventory, events, and pro shop, and it sends new leads back into the helm.",
+      "story": "Publish the boats, the events, and the pro shop. Find my boat and the lead forms bring the next conversation back to the store.",
+      "features": [
+        "Public inventory",
+        "Lead forms",
+        "Event pages",
+        "Pro shop",
+        "Find my boat"
+      ],
+      "shots": [
+        "/shots/website.png",
+        "/shots/website-events.png"
+      ]
+    }
+  ],
+  "dealershipOs": {
+    "name": "Dealership OS",
+    "definition": "Dealership OS is the full store: the sales floor, the service lane, and the books, in one system.",
+    "body": "The four modules cover how you sell, how you service, how you market, and the site customers see. The operating system is the rest of the rooftop, including parts and the books. It is coming soon and is not for sale yet."
+  },
+  "faqs": [
+    {
+      "question": "Who is Elevated Helm for?",
+      "answer": "Marine dealerships. The modules cover sales, service, marketing, and the public website."
+    },
+    {
+      "question": "Can I start with one module?",
+      "answer": "Yes. Any paid module includes customers, the boats your customers own, a calendar, and tasks."
+    },
+    {
+      "question": "What does the Helm bundle cost?",
+      "answer": "The Helm bundle is $1,399 per rooftop each month for Sales CRM, Service CRM, Marketing, and Website. Bought separately, those four are $1,846."
+    },
+    {
+      "question": "Is the dealership operating system available?",
+      "answer": "Dealership OS is coming soon and is not for sale yet."
+    },
+    {
+      "question": "How does annual billing work?",
+      "answer": "Annual billing is ten months of the monthly price. Two months are included."
+    }
+  ]
+}
