@@ -1,7 +1,9 @@
 import { getSiteContent } from "@/lib/content/load";
 import { siteName } from "@/content/site";
 import Link from "next/link";
-import { Menu, NavLinks, buttonClass } from "@/components/chrome";
+import { Menu, NavLinks, buttonClass, quietButtonClass } from "@/components/chrome";
+
+const demoLoginUrl = "https://elevatedhelm.app";
 
 export async function SiteHeader() {
   const content = await getSiteContent();
@@ -16,6 +18,9 @@ export async function SiteHeader() {
           className="hidden items-center gap-5 text-sm md:flex"
         />
         <div className="flex items-center gap-3">
+          <a href={demoLoginUrl} className={quietButtonClass}>
+            Demo Login
+          </a>
           <Link href="/#demo" className={buttonClass}>
             Request a demo
           </Link>
