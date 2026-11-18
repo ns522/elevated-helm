@@ -24,6 +24,7 @@ export function NavLinks({
       href: `/modules/${module.slug}`,
       label: module.navLabel,
     })),
+    { href: "/agents", label: "Agents" },
     { href: "/pricing", label: "Pricing" },
     { href: "/dealership-os", label: "Dealership OS" },
   ];

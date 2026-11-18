@@ -3,7 +3,8 @@ import { Geist, Instrument_Serif } from "next/font/google";
 import { LiveEditor } from "@/components/editor/live-editor";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { siteName } from "@/content/site";
+import { pricing, siteName } from "@/content/site";
+import { money } from "@/lib/money";
 import { editorEnabled } from "@/lib/editor/session";
 import "./globals.css";
 
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     template: `%s · ${siteName}`,
   },
   description:
-    `${siteName} is software for dealerships. Buy Sales CRM, Service CRM, Marketing, and Website. The full dealership operating system is coming soon.`,
+    `${siteName} is software for dealerships. Buy Sales CRM, Service CRM, Marketing, and Website. The AI agents add-on is ${money(pricing.agentPrice)} a month. The full dealership operating system is coming soon.`,
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

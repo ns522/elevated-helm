@@ -38,6 +38,7 @@ export default async function DealershipOsPage() {
           <DemoForm
             modules={content.modules}
             osName={content.dealershipOs.name}
+            agentName={content.agents.name}
             heading="Join the waitlist"
             submitLabel="Join the waitlist"
             defaultOs

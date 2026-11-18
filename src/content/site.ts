@@ -6,7 +6,7 @@ export const contactEmail = "hello@elevatedhelm.com";
 export const promise = "Run your dealership from one system.";
 
 export const lede =
-  "Sales and service are one price per user. Add the website, then add a rooftop for each extra store.";
+  "Sales and service are one price per user. Add the website, a rooftop for each extra store, or the AI agents for the whole account.";
 
 export const includedLine =
   "Each user includes customers, the units they own, a calendar, and tasks.";
@@ -31,12 +31,14 @@ export const pricing = {
   userPrice: 99,
   websitePrice: 399,
   additionalRooftopPrice: 299,
+  agentPrice: 299,
 } as const;
 
 export type Pricing = {
   userPrice: number;
   websitePrice: number;
   additionalRooftopPrice: number;
+  agentPrice: number;
 };
 
 export function moduleOffer(module: { billing: Billing }, rates: Pricing) {
@@ -59,7 +61,7 @@ export function moduleOffer(module: { billing: Billing }, rates: Pricing) {
 
 export function quoteMonthly(
   rates: Pricing,
-  input: { users: number; rooftops: number; website: boolean },
+  input: { users: number; rooftops: number; website: boolean; agents: boolean },
 ) {
   const users = Math.min(999, Math.max(1, Math.floor(input.users) || 1));
   const rooftops = Math.min(999, Math.max(1, Math.floor(input.rooftops) || 1));
@@ -67,6 +69,7 @@ export function quoteMonthly(
   const usersTotal = users * rates.userPrice;
   const websiteTotal = input.website ? rates.websitePrice : 0;
   const rooftopsTotal = additionalRooftops * rates.additionalRooftopPrice;
+  const agentsTotal = input.agents ? rates.agentPrice : 0;
   return {
     users,
     rooftops,
@@ -74,9 +77,82 @@ export function quoteMonthly(
     usersTotal,
     websiteTotal,
     rooftopsTotal,
-    total: usersTotal + websiteTotal + rooftopsTotal,
+    agentsTotal,
+    total: usersTotal + websiteTotal + rooftopsTotal + agentsTotal,
   };
 }
+
+export type AgentProfile = {
+  name: string;
+  role: string;
+  summary: string;
+  limit: string;
+};
+
+export const agents = {
+  name: "AI agents",
+  definition:
+    "Six agents share one command center. They draft the work, cite the record, and wait for a person before the store changes.",
+  body: "The add-on is one monthly price for the account. It does not change with the user count or the number of rooftops.",
+  commandCenter:
+    "Every job is a work case. The case holds the customer, the unit, the quote or repair order, the tasks, the draft, and the approval, with the evidence and the time beside each step.",
+  approval:
+    "An agent can read the dealership, prepare a draft, and propose the next step. Saving a quote, creating a service task, changing a price, or sending a message waits for a person. The approval is recorded on the case.",
+  handoff:
+    "Sally's quote, Sven's repair order, Karen's draft, and Jim's exception can stay on the same case. The timeline shows who acted, what they used, and what is still waiting.",
+  roster: [
+    {
+      name: "Sally",
+      role: "Sales",
+      summary:
+        "She turns a lead and an in-stock unit into a quote. If the lead or the unit is ambiguous, she asks before she prices it. The quote shows the selling price and the breakdown, and it is saved only after a person confirms. She can open the follow-up on that same case.",
+      limit: "She does not submit financing and she does not send the quote out.",
+    },
+    {
+      name: "Sven",
+      role: "Service",
+      summary:
+        "He reads the repair order, drafts the estimate and the work plan, and routes that draft for approval. After a person approves, he creates the assigned service task and updates the case.",
+      limit: "He does not message the customer and he does not place a supplier order.",
+    },
+    {
+      name: "Karen",
+      role: "Communications",
+      summary:
+        "She reads the case and the customer's contact preferences, then writes the message. The draft stays in review until a person approves it.",
+      limit: "She does not send email or text on her own.",
+    },
+    {
+      name: "Jim",
+      role: "General manager",
+      summary:
+        "He finds an overdue sales or service exception and cites the record, the owner, and the time. He names who should act and proposes the task. A material edit waits for approval.",
+      limit: "He does not invent a number that is not in the dealership's records.",
+    },
+    {
+      name: "Ed",
+      role: "Training",
+      summary:
+        "He answers a staff question from the dealership's approved policies and cites the source, the section, and the version. If the policy is not there, he says he does not have it.",
+      limit: "He does not write a rule that was not approved, and he does not open a file the person is not allowed to see.",
+    },
+    {
+      name: "Manny",
+      role: "Sales intelligence",
+      summary:
+        "He counts leads, sales, conversion, and aging for a model, and he shows the dates and the totals those numbers come from. He proposes the next action.",
+      limit: "He does not change a price on his own.",
+    },
+  ],
+} as const satisfies {
+  name: string;
+  definition: string;
+  body: string;
+  commandCenter: string;
+  approval: string;
+  handoff: string;
+  roster: readonly AgentProfile[];
+};
 
 export const modules = [
   {
@@ -175,7 +251,12 @@ export const faqs = [
   },
   {
     question: "How does pricing work?",
-    answer: `Sales and service access is ${money(pricing.userPrice)} per user each month, and marketing is included. The website is ${money(pricing.websitePrice)} a month. Each rooftop after the first is ${money(pricing.additionalRooftopPrice)} a month.`,
+    answer: `Sales and service access is ${money(pricing.userPrice)} per user each month, and marketing is included. The website is ${money(pricing.websitePrice)} a month. Each rooftop after the first is ${money(pricing.additionalRooftopPrice)} a month. The AI agents add-on is ${money(pricing.agentPrice)} a month for the whole account.`,
+  },
+  {
+    question: "What do the AI agents do?",
+    answer:
+      "Sally quotes, Sven drafts the repair order, Karen writes the customer message, Jim cites exceptions for the general manager, Ed answers from approved policy, and Manny counts leads and sales by model. They share one case. A person approves a change before it is saved or sent.",
   },
   {
     question: "Is the dealership operating system available?",
@@ -221,6 +302,13 @@ export function softwareApplicationJsonLd() {
         priceCurrency: "USD",
         description: "Each rooftop after the first, each month. The first rooftop is included.",
       },
+      {
+        "@type": "Offer",
+        name: agents.name,
+        price: String(pricing.agentPrice),
+        priceCurrency: "USD",
+        description: `${agents.definition} ${money(pricing.agentPrice)} a month for the account.`,
+      },
     ],
   };
 }
@@ -252,6 +340,13 @@ export function llmsText() {
     `- Sales and service access: ${money(pricing.userPrice)} per user. Marketing is included. One person is not billed twice.`,
     `- Website: ${money(pricing.websitePrice)} per month.`,
     `- Additional rooftop: ${money(pricing.additionalRooftopPrice)} per month. The first rooftop is included.`,
+    `- ${agents.name}: ${money(pricing.agentPrice)} per month for the account. The price does not change with users or rooftops.`,
+    "",
+    agents.definition,
+    agents.commandCenter,
+    agents.approval,
+    agents.handoff,
+    ...agents.roster.map((agent) => `- ${agent.name} (${agent.role}). ${agent.summary} ${agent.limit}`),
     "",
     "Modules:",
     ...modules.map((module) => `- ${module.name}. ${module.definition}`),

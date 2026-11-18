@@ -8,7 +8,8 @@ export function PricingCalculator({ pricing }: { pricing: Pricing }) {
   const [users, setUsers] = useState(1);
   const [rooftops, setRooftops] = useState(1);
   const [website, setWebsite] = useState(true);
-  const quote = quoteMonthly(pricing, { users, rooftops, website });
+  const [agents, setAgents] = useState(false);
+  const quote = quoteMonthly(pricing, { users, rooftops, website, agents });
 
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[1fr_20rem]">
@@ -32,6 +33,25 @@ export function PricingCalculator({ pricing }: { pricing: Pricing }) {
           </span>
           <span className="tabular-nums text-price">{money(pricing.websitePrice)}</span>
         </label>
+        <label
+          className={`flex cursor-pointer items-center justify-between gap-4 rounded-2xl border px-4 py-4 transition ${
+            agents ? "border-accent bg-frame" : "border-line bg-surface hover:border-accent"
+          }`}
+        >
+          <span className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={agents}
+              onChange={() => setAgents((current) => !current)}
+              className="size-4 accent-[var(--accent)]"
+            />
+            <span>
+              AI agents
+              <span className="mt-1 block text-sm text-muted">One price for the account.</span>
+            </span>
+          </span>
+          <span className="tabular-nums text-price">{money(pricing.agentPrice)}</span>
+        </label>
       </div>
       <div aria-live="polite" className="rounded-3xl border border-line bg-surface p-6 lg:sticky lg:top-6">
         <p className="text-sm text-muted">Monthly total</p>
@@ -48,6 +68,7 @@ export function PricingCalculator({ pricing }: { pricing: Pricing }) {
               ? "First rooftop included"
               : `${quote.additionalRooftops} additional ${quote.additionalRooftops === 1 ? "rooftop" : "rooftops"} × ${money(pricing.additionalRooftopPrice)}`}
           </li>
+          <li>{agents ? `AI agents ${money(pricing.agentPrice)}` : "AI agents not included"}</li>
         </ul>
       </div>
     </div>

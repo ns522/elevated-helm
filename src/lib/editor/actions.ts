@@ -9,7 +9,7 @@ import { getSiteContent, writeSiteContent, type SiteContent } from "@/lib/conten
 import { EDITOR_COOKIE, adminPassword, editorEnabled, editorToken } from "@/lib/editor/session";
 
 const fieldPattern =
-  /^(promise|lede|includedLine|annualNote|contactEmail|pricing\.(userPrice|websitePrice|additionalRooftopPrice)|dealershipOs\.(name|definition|body)|modules\.[a-z0-9-]+\.(name|navLabel|price|definition|story|features)|faqs\.\d+\.(question|answer))$/;
+  /^(promise|lede|includedLine|annualNote|contactEmail|pricing\.(userPrice|websitePrice|additionalRooftopPrice|agentPrice)|dealershipOs\.(name|definition|body)|agents\.(name|definition|body|commandCenter|approval|handoff)|modules\.[a-z0-9-]+\.(name|navLabel|price|definition|story|features)|faqs\.\d+\.(question|answer))$/;
 
 function applyField(content: SiteContent, field: string, raw: string) {
   const value = raw.trim();
@@ -25,6 +25,10 @@ function applyField(content: SiteContent, field: string, raw: string) {
   } else if (field.startsWith("dealershipOs.")) {
     const key = field.slice("dealershipOs.".length) as "name" | "definition" | "body";
     content.dealershipOs[key] = value;
+  } else if (field.startsWith("agents.")) {
+    const key = field.slice("agents.".length) as "name" | "definition" | "body" | "commandCenter" | "approval" | "handoff";
+    if (!(key in content.agents)) return false;
+    content.agents[key] = value;
   } else if (field.startsWith("modules.")) {
     const [, slug, key] = field.split(".");
     const module = content.modules.find((item) => item.slug === slug);

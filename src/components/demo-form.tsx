@@ -11,6 +11,8 @@ export function DemoForm({
   submitLabel,
   osName = "Dealership OS",
   defaultOs = false,
+  agentName = "AI agents",
+  defaultAgent = false,
   sourcePath,
 }: {
   modules: readonly Pick<Module, "slug" | "name">[];
@@ -18,6 +20,8 @@ export function DemoForm({
   submitLabel: string;
   osName?: string;
   defaultOs?: boolean;
+  agentName?: string;
+  defaultAgent?: boolean;
   sourcePath: string;
 }) {
   const [state, action, pending] = useActionState(
@@ -77,6 +81,16 @@ export function DemoForm({
               className="size-4 accent-[var(--accent)]"
             />
             {osName} (coming soon)
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              name="interest"
+              value={`${agentName} add-on`}
+              defaultChecked={defaultAgent}
+              className="size-4 accent-[var(--accent)]"
+            />
+            {agentName} add-on
           </label>
         </div>
       </fieldset>

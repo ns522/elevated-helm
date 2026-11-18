@@ -2,6 +2,7 @@ import { cache } from "react";
 import fs from "node:fs";
 import path from "node:path";
 import {
+  agents,
   annualNote,
   contactEmail,
   dealershipOs,
@@ -12,6 +13,7 @@ import {
   pricing,
   promise,
   siteName,
+  type AgentProfile,
   type Billing,
   type Pricing,
 } from "@/content/site";
@@ -43,6 +45,15 @@ export type SiteContent = {
     definition: string;
     body: string;
   };
+  agents: {
+    name: string;
+    definition: string;
+    body: string;
+    commandCenter: string;
+    approval: string;
+    handoff: string;
+    roster: AgentProfile[];
+  };
   faqs: { question: string; answer: string }[];
 };
 
@@ -72,6 +83,15 @@ function defaults(): SiteContent {
       definition: dealershipOs.definition,
       body: dealershipOs.body,
     },
+    agents: {
+      name: agents.name,
+      definition: agents.definition,
+      body: agents.body,
+      commandCenter: agents.commandCenter,
+      approval: agents.approval,
+      handoff: agents.handoff,
+      roster: agents.roster.map((agent) => ({ ...agent })),
+    },
     faqs: faqs.map((faq) => ({ question: faq.question, answer: faq.answer })),
   };
 }
@@ -83,6 +103,11 @@ function merge(base: SiteContent, saved: Partial<SiteContent>): SiteContent {
     ...saved,
     pricing: { ...base.pricing, ...saved.pricing },
     dealershipOs: { ...base.dealershipOs, ...saved.dealershipOs },
+    agents: {
+      ...base.agents,
+      ...saved.agents,
+      roster: saved.agents?.roster?.length ? saved.agents.roster : base.agents.roster,
+    },
     faqs: saved.faqs?.length ? saved.faqs : base.faqs,
     modules: base.modules.map((module) => {
       const override = modulesBySlug.get(module.slug);
@@ -144,6 +169,13 @@ export function softwareJsonLd(content: SiteContent) {
         priceCurrency: "USD",
         description: "Each rooftop after the first, each month. The first rooftop is included.",
       },
+      {
+        "@type": "Offer",
+        name: content.agents.name,
+        price: String(content.pricing.agentPrice),
+        priceCurrency: "USD",
+        description: `${content.agents.definition} ${money(content.pricing.agentPrice)} a month for the account.`,
+      },
     ],
   };
 }
@@ -172,6 +204,13 @@ export function llmsText(content: SiteContent) {
     `- Sales and service access: ${money(content.pricing.userPrice)} per user. Marketing is included. One person is not billed twice.`,
     `- Website: ${money(content.pricing.websitePrice)} per month.`,
     `- Additional rooftop: ${money(content.pricing.additionalRooftopPrice)} per month. The first rooftop is included.`,
+    `- ${content.agents.name}: ${money(content.pricing.agentPrice)} per month for the account. The price does not change with users or rooftops.`,
+    "",
+    content.agents.definition,
+    content.agents.commandCenter,
+    content.agents.approval,
+    content.agents.handoff,
+    ...content.agents.roster.map((agent) => `- ${agent.name} (${agent.role}). ${agent.summary} ${agent.limit}`),
     "",
     "Modules:",
     ...content.modules.map((module) => `- ${module.name}. ${module.definition}`),

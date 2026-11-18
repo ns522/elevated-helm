@@ -3,6 +3,7 @@ import { Editable } from "@/components/editor/editable";
 import { JsonLd } from "@/components/json-ld";
 import { ModuleSwitcher } from "@/components/module-switcher";
 import { faqJsonLd, getSiteContent, softwareJsonLd } from "@/lib/content/load";
+import { money } from "@/lib/money";
 import Link from "next/link";
 
 export default async function Home() {
@@ -52,6 +53,42 @@ export default async function Home() {
           </p>
         </div>
         <ModuleSwitcher modules={content.modules} pricing={content.pricing} />
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-20" aria-labelledby="agents-heading">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-sm font-medium text-accent">Add-on</p>
+            <h2 id="agents-heading" className="mt-3 font-serif text-4xl tracking-tight">
+              <Editable path="agents.name" value={content.agents.name}>
+                {content.agents.name}
+              </Editable>
+            </h2>
+          </div>
+          <p className="text-lg">
+            <Editable path="pricing.agentPrice" kind="number" value={String(content.pricing.agentPrice)}>
+              {money(content.pricing.agentPrice)}
+            </Editable>
+            <span className="text-sm text-muted"> / month for the account</span>
+          </p>
+        </div>
+        <p className="mt-4 max-w-2xl text-lg leading-8">
+          <Editable path="agents.definition" value={content.agents.definition}>
+            {content.agents.definition}
+          </Editable>
+        </p>
+        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {content.agents.roster.map((agent) => (
+            <li key={agent.name} className="rounded-2xl border border-line bg-surface p-4">
+              <p className="text-sm font-medium text-accent">{agent.role}</p>
+              <h3 className="mt-1 font-serif text-2xl tracking-tight">{agent.name}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted">{agent.summary}</p>
+            </li>
+          ))}
+        </ul>
+        <Link href="/agents" className="mt-6 inline-block text-sm font-medium text-accent">
+          Read how the agents work
+        </Link>
       </section>
 
       <section className="border-y border-line bg-surface">
@@ -129,6 +166,7 @@ export default async function Home() {
           <DemoForm
             modules={content.modules}
             osName={content.dealershipOs.name}
+            agentName={content.agents.name}
             heading="Request a demo"
             submitLabel="Request a demo"
             sourcePath="/"

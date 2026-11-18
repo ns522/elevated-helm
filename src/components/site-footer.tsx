@@ -25,6 +25,11 @@ export async function SiteFooter() {
         </ul>
         <ul className="space-y-2 text-sm">
           <li>
+            <Link href="/agents" className="hover:text-accent">
+              AI agents
+            </Link>
+          </li>
+          <li>
             <Link href="/pricing" className="hover:text-accent">
               Pricing
             </Link>

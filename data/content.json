@@ -1,13 +1,14 @@
 {
   "promise": "Run your dealership from one system.",
-  "lede": "Sales and service are one price per user. Add the website, then add a rooftop for each extra store.",
+  "lede": "Sales and service are one price per user. Add the website, a rooftop for each extra store, or the AI agents for the whole account.",
   "includedLine": "Each user includes customers, the units they own, a calendar, and tasks.",
   "annualNote": "Annual billing is ten months of the monthly price. Two months are included.",
   "contactEmail": "hello@elevatedhelm.com",
   "pricing": {
     "userPrice": 99,
     "websitePrice": 399,
-    "additionalRooftopPrice": 299
+    "additionalRooftopPrice": 299,
+    "agentPrice": 299
   },
   "modules": [
     {
@@ -102,7 +103,11 @@
     },
     {
       "question": "How does pricing work?",
-      "answer": "Sales and service access is $99 per user each month, and marketing is included. The website is $399 a month. Each rooftop after the first is $299 a month."
+      "answer": "Sales and service access is $99 per user each month, and marketing is included. The website is $399 a month. Each rooftop after the first is $299 a month. The AI agents add-on is $299 a month for the whole account."
+    },
+    {
+      "question": "What do the AI agents do?",
+      "answer": "Sally quotes, Sven drafts the repair order, Karen writes the customer message, Jim cites exceptions for the general manager, Ed answers from approved policy, and Manny counts leads and sales by model. They share one case. A person approves a change before it is saved or sent."
     },
     {
       "question": "Is the dealership operating system available?",

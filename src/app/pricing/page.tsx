@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const content = await getSiteContent();
   return {
     title: "Pricing",
-    description: `Sales and service are ${money(content.pricing.userPrice)} per user. The website is ${money(content.pricing.websitePrice)} a month. Each additional rooftop is ${money(content.pricing.additionalRooftopPrice)} a month.`,
+    description: `Sales and service are ${money(content.pricing.userPrice)} per user. The website is ${money(content.pricing.websitePrice)} a month. Each additional rooftop is ${money(content.pricing.additionalRooftopPrice)} a month. AI agents are ${money(content.pricing.agentPrice)} a month for the account.`,
   };
 }
 
@@ -91,13 +91,41 @@ export default async function PricingPage() {
             </a>
           </li>
         </ul>
+
+        <div className="mt-4 rounded-3xl border border-line bg-surface p-6">
+          <p className="text-sm font-medium text-accent">Add-on</p>
+          <h2 className="mt-3 font-serif text-2xl tracking-tight">
+            <Editable path="agents.name" value={content.agents.name}>
+              {content.agents.name}
+            </Editable>
+          </h2>
+          <p className="mt-4 text-3xl">
+            <Editable path="pricing.agentPrice" kind="number" value={String(content.pricing.agentPrice)}>
+              <PriceTag amount={content.pricing.agentPrice} />
+            </Editable>
+            <span className="text-sm text-muted"> / month</span>
+          </p>
+          <p className="mt-4 max-w-2xl text-sm leading-6 text-muted">
+            <Editable path="agents.body" value={content.agents.body}>
+              {content.agents.body}
+            </Editable>
+          </p>
+          <p className="mt-3 max-w-2xl text-sm leading-6">
+            <Editable path="agents.definition" value={content.agents.definition}>
+              {content.agents.definition}
+            </Editable>
+          </p>
+          <Link href="/agents" className="mt-6 inline-block text-sm font-medium text-accent">
+            See the six agents
+          </Link>
+        </div>
       </section>
 
       <section id="calculator" className="border-t border-line">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <h2 className="font-serif text-3xl tracking-tight">Monthly total</h2>
           <p className="mt-3 max-w-2xl text-muted">
-            Set the users, the rooftops, and whether you want the website.
+            Set the users, the rooftops, and whether you want the website and the AI agents.
           </p>
           <div className="mt-8">
             <PricingCalculator pricing={content.pricing} />
@@ -181,6 +209,20 @@ export default async function PricingPage() {
                   </td>
                   <td className="py-4 text-muted">The first rooftop is included.</td>
                 </tr>
+                <tr className="border-b border-line align-top">
+                  <th scope="row" className="py-4 pr-4 font-medium">
+                    {content.agents.name}
+                  </th>
+                  <td className="py-4 pr-4 tabular-nums text-price">
+                    {money(content.pricing.agentPrice)} / month
+                  </td>
+                  <td className="py-4 text-muted">
+                    Sally, Sven, Karen, Jim, Ed, and Manny. One price for the account.{" "}
+                    <Link href="/agents" className="font-medium text-accent">
+                      See the agents
+                    </Link>
+                  </td>
+                </tr>
                 <tr className="align-top">
                   <th scope="row" className="py-4 pr-4 font-medium">
                     {content.dealershipOs.name}
@@ -204,6 +246,7 @@ export default async function PricingPage() {
           <DemoForm
             modules={content.modules}
             osName={content.dealershipOs.name}
+            agentName={content.agents.name}
             heading="Request a demo"
             submitLabel="Request a demo"
             sourcePath="/pricing"
