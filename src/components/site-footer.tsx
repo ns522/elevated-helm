@@ -11,7 +11,7 @@ export async function SiteFooter() {
         <div>
           <p className="font-serif text-xl tracking-tight">{siteName}</p>
           <p className="mt-2 max-w-xs text-sm leading-6 text-muted">
-            Software for marine dealerships.
+            Software for dealerships.
           </p>
         </div>
         <ul className="space-y-2 text-sm">

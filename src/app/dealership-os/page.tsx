@@ -37,11 +37,11 @@ export default async function DealershipOsPage() {
         <div className="mx-auto max-w-3xl px-6 py-20">
           <DemoForm
             modules={content.modules}
-            email={content.contactEmail}
             osName={content.dealershipOs.name}
             heading="Join the waitlist"
             submitLabel="Join the waitlist"
             defaultOs
+            sourcePath="/dealership-os"
           />
         </div>
       </section>

@@ -13,7 +13,7 @@ export default async function Home() {
       <JsonLd data={softwareJsonLd(content)} />
       <JsonLd data={faqJsonLd(content)} />
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-8 sm:pt-24">
-        <p className="text-sm font-medium text-accent">For marine dealerships</p>
+        <p className="text-sm font-medium text-accent">For dealerships</p>
         <h1 className="mt-4 max-w-3xl font-serif text-5xl tracking-tight sm:text-6xl">
           <Editable path="promise" value={content.promise}>
             {content.promise}
@@ -51,7 +51,7 @@ export default async function Home() {
             </Editable>
           </p>
         </div>
-        <ModuleSwitcher modules={content.modules} />
+        <ModuleSwitcher modules={content.modules} pricing={content.pricing} />
       </section>
 
       <section className="border-y border-line bg-surface">
@@ -128,10 +128,10 @@ export default async function Home() {
         <div className="mx-auto max-w-3xl px-6 py-20">
           <DemoForm
             modules={content.modules}
-            email={content.contactEmail}
             osName={content.dealershipOs.name}
             heading="Request a demo"
             submitLabel="Request a demo"
+            sourcePath="/"
           />
         </div>
       </section>

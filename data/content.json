@@ -1,18 +1,23 @@
 {
-  "promise": "Run your marine dealership from one helm.",
-  "lede": "Buy the modules you need now — sales, service, marketing, and your website. The full operating system is on the way.",
-  "includedLine": "Any paid module includes customers, the boats your customers own, a calendar, and tasks.",
+  "promise": "Run your dealership from one system.",
+  "lede": "Sales and service are one price per user. Add the website, then add a rooftop for each extra store.",
+  "includedLine": "Each user includes customers, the units they own, a calendar, and tasks.",
   "annualNote": "Annual billing is ten months of the monthly price. Two months are included.",
   "contactEmail": "hello@elevatedhelm.com",
-  "bundlePrice": 1399,
+  "pricing": {
+    "userPrice": 99,
+    "websitePrice": 399,
+    "additionalRooftopPrice": 299
+  },
   "modules": [
     {
       "slug": "sales-crm",
       "name": "Sales CRM",
       "navLabel": "Sales",
-      "price": 549,
-      "definition": "Sales CRM is the path from a new lead to a sold boat: inventory, quotes, and the customers you already know.",
-      "story": "Work a lead through the inventory, a quote, and the close. The customer record keeps every boat they have owned beside the deal.",
+      "billing": "user",
+      "price": 99,
+      "definition": "Sales CRM is the path from a new lead to a sold unit: inventory, quotes, and the customers you already know.",
+      "story": "Work a lead through the inventory, a quote, and the close. The customer record keeps every unit they have owned beside the deal.",
       "features": [
         "Leads",
         "Inventory",
@@ -20,7 +25,7 @@
         "Appraisals",
         "Consignments and trades",
         "Events",
-        "Customers and the boats they own"
+        "Customers and the units they own"
       ],
       "shots": [
         "/shots/sales-crm-1790459929914.png",
@@ -31,7 +36,8 @@
       "slug": "service-crm",
       "name": "Service CRM",
       "navLabel": "Service",
-      "price": 549,
+      "billing": "user",
+      "price": 99,
       "definition": "Service CRM runs the service lane: requests, estimates your customer can approve, and the work on the board.",
       "story": "Take a request, send an estimate the owner can approve, and keep the day visible on the tech workboard.",
       "features": [
@@ -49,8 +55,9 @@
       "slug": "marketing",
       "name": "Marketing",
       "navLabel": "Marketing",
-      "price": 399,
-      "definition": "Marketing keeps the brand, the ads, and the social plan in the same place as the boats and the events.",
+      "billing": "included",
+      "price": 99,
+      "definition": "Marketing keeps the brand, the ads, and the social plan in the same place as the inventory and the events.",
       "story": "Write the brand once, then plan ads and social posts around the inventory and events already on the floor.",
       "features": [
         "Brand book",
@@ -66,15 +73,16 @@
       "slug": "website",
       "name": "Website",
       "navLabel": "Website",
-      "price": 349,
-      "definition": "Website is the public site for your inventory, events, and pro shop, and it sends new leads back into the helm.",
-      "story": "Publish the boats, the events, and the pro shop. Find my boat and the lead forms bring the next conversation back to the store.",
+      "billing": "flat",
+      "price": 399,
+      "definition": "Website is the public site for your inventory, events, and parts counter, and it sends new leads back into DealerAgent.",
+      "story": "Publish the inventory, the events, and the parts counter. Inventory search and the lead forms bring the next conversation back to the store.",
       "features": [
         "Public inventory",
         "Lead forms",
         "Event pages",
-        "Pro shop",
-        "Find my boat"
+        "Parts counter",
+        "Inventory search"
       ],
       "shots": [
         "/shots/website.png",
@@ -89,16 +97,12 @@
   },
   "faqs": [
     {
-      "question": "Who is Elevated Helm for?",
-      "answer": "Marine dealerships. The modules cover sales, service, marketing, and the public website."
+      "question": "Who is DealerAgent for?",
+      "answer": "Dealerships. The modules cover sales, service, marketing, and the public website."
     },
     {
-      "question": "Can I start with one module?",
-      "answer": "Yes. Any paid module includes customers, the boats your customers own, a calendar, and tasks."
-    },
-    {
-      "question": "What does the Helm bundle cost?",
-      "answer": "The Helm bundle is $1,399 per rooftop each month for Sales CRM, Service CRM, Marketing, and Website. Bought separately, those four are $1,846."
+      "question": "How does pricing work?",
+      "answer": "Sales and service access is $99 per user each month, and marketing is included. The website is $399 a month. Each rooftop after the first is $299 a month."
     },
     {
       "question": "Is the dealership operating system available?",

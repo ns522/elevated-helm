@@ -1,47 +1,34 @@
 "use client";
 
 import { buttonClass } from "@/components/chrome";
-import { siteName, type Module } from "@/content/site";
-import { useState, type FormEvent } from "react";
+import { submitDemoLead } from "@/lib/demo-lead";
+import { useActionState } from "react";
+import type { Module } from "@/content/site";
 
 export function DemoForm({
   modules,
   heading,
   submitLabel,
-  email = "hello@elevatedhelm.com",
   osName = "Dealership OS",
   defaultOs = false,
+  sourcePath,
 }: {
   modules: readonly Pick<Module, "slug" | "name">[];
   heading: string;
   submitLabel: string;
-  email?: string;
   osName?: string;
   defaultOs?: boolean;
+  sourcePath: string;
 }) {
-  const [opened, setOpened] = useState(false);
-
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") ?? "").trim();
-    const dealership = String(data.get("dealership") ?? "").trim();
-    const from = String(data.get("email") ?? "").trim();
-    const interest = data.getAll("interest").map(String);
-    const body = [
-      `Name: ${name}`,
-      `Dealership: ${dealership}`,
-      `Email: ${from}`,
-      `Interest: ${interest.length ? interest.join(", ") : "Not specified"}`,
-    ].join("\n");
-    const href = `mailto:${email}?subject=${encodeURIComponent(`${siteName} demo`)}&body=${encodeURIComponent(body)}`;
-    setOpened(true);
-    window.location.href = href;
-  }
+  const [state, action, pending] = useActionState(
+    async (_previous: { error?: string; ok?: boolean } | null, formData: FormData) => submitDemoLead(formData),
+    null,
+  );
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-5">
+    <form action={action} className="grid gap-5">
       <h2 className="font-serif text-4xl tracking-tight">{heading}</h2>
+      <input type="hidden" name="sourcePath" value={sourcePath} />
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="grid gap-2 text-sm">
           Name
@@ -77,12 +64,7 @@ export function DemoForm({
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           {modules.map((module) => (
             <label key={module.slug} className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                name="interest"
-                value={module.name}
-                className="size-4 accent-[var(--accent)]"
-              />
+              <input type="checkbox" name="interest" value={module.name} className="size-4 accent-[var(--accent)]" />
               {module.name}
             </label>
           ))}
@@ -90,7 +72,7 @@ export function DemoForm({
             <input
               type="checkbox"
               name="interest"
-                value={`${osName} (coming soon)`}
+              value={`${osName} (coming soon)`}
               defaultChecked={defaultOs}
               className="size-4 accent-[var(--accent)]"
             />
@@ -99,13 +81,11 @@ export function DemoForm({
         </div>
       </fieldset>
       <div>
-        <button type="submit" className={buttonClass}>
-          {submitLabel}
+        <button type="submit" className={buttonClass} disabled={pending}>
+          {pending ? "Sending…" : submitLabel}
         </button>
-        <p className="mt-3 text-sm text-muted">
-          This opens an email to {email}.
-          {opened ? " If your mail app did not open, use that address directly." : null}
-        </p>
+        {state?.ok ? <p className="mt-3 text-sm text-muted">Thanks. We'll be in touch.</p> : null}
+        {state?.error ? <p className="mt-3 text-sm text-muted">{state.error}</p> : null}
       </div>
     </form>
   );

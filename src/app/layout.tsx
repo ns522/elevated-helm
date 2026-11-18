@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: `%s · ${siteName}`,
   },
   description:
-    "Elevated Helm is software for marine dealerships. Buy Sales CRM, Service CRM, Marketing, and Website. The full dealership operating system is coming soon.",
+    `${siteName} is software for dealerships. Buy Sales CRM, Service CRM, Marketing, and Website. The full dealership operating system is coming soon.`,
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

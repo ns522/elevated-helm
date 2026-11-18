@@ -3,15 +3,17 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   annualNote,
-  bundle,
   contactEmail,
   dealershipOs,
   faqs,
   includedLine,
   lede,
   modules,
+  pricing,
   promise,
   siteName,
+  type Billing,
+  type Pricing,
 } from "@/content/site";
 import { money } from "@/lib/money";
 import { shotSrcs } from "@/lib/shots";
@@ -20,6 +22,7 @@ export type EditableModule = {
   slug: string;
   name: string;
   navLabel: string;
+  billing: Billing;
   price: number;
   definition: string;
   story: string;
@@ -33,7 +36,7 @@ export type SiteContent = {
   includedLine: string;
   annualNote: string;
   contactEmail: string;
-  bundlePrice: number;
+  pricing: Pricing;
   modules: EditableModule[];
   dealershipOs: {
     name: string;
@@ -52,11 +55,12 @@ function defaults(): SiteContent {
     includedLine,
     annualNote,
     contactEmail,
-    bundlePrice: bundle.price,
+    pricing: { ...pricing },
     modules: modules.map((module) => ({
       slug: module.slug,
       name: module.name,
       navLabel: module.navLabel,
+      billing: module.billing,
       price: module.price,
       definition: module.definition,
       story: module.story,
@@ -77,6 +81,7 @@ function merge(base: SiteContent, saved: Partial<SiteContent>): SiteContent {
   return {
     ...base,
     ...saved,
+    pricing: { ...base.pricing, ...saved.pricing },
     dealershipOs: { ...base.dealershipOs, ...saved.dealershipOs },
     faqs: saved.faqs?.length ? saved.faqs : base.faqs,
     modules: base.modules.map((module) => {
@@ -85,6 +90,7 @@ function merge(base: SiteContent, saved: Partial<SiteContent>): SiteContent {
       return {
         ...module,
         ...override,
+        billing: override.billing ?? module.billing,
         features: override.features?.length ? override.features : module.features,
         shots: override.shots?.length ? override.shots : module.shots,
       };
@@ -104,10 +110,6 @@ export async function writeSiteContent(content: SiteContent) {
   await fs.promises.writeFile(filePath, `${JSON.stringify(content, null, 2)}\n`);
 }
 
-export function separatePrice(content: SiteContent) {
-  return content.modules.reduce((sum, module) => sum + module.price, 0);
-}
-
 export function softwareJsonLd(content: SiteContent) {
   return {
     "@context": "https://schema.org",
@@ -115,25 +117,32 @@ export function softwareJsonLd(content: SiteContent) {
     name: siteName,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    description: `${siteName} is software for marine dealerships. ${content.promise}`,
+    description: `${siteName} is software for dealerships. ${content.promise}`,
     audience: {
       "@type": "BusinessAudience",
-      audienceType: "Marine dealerships",
+      audienceType: "Dealerships",
     },
     offers: [
-      ...content.modules.map((module) => ({
-        "@type": "Offer",
-        name: module.name,
-        price: String(module.price),
-        priceCurrency: "USD",
-        description: module.definition,
-      })),
       {
         "@type": "Offer",
-        name: bundle.name,
-        price: String(content.bundlePrice),
+        name: "Sales and service access",
+        price: String(content.pricing.userPrice),
         priceCurrency: "USD",
-        description: `Sales CRM, Service CRM, Marketing, and Website for one rooftop. Separate price is ${money(separatePrice(content))}.`,
+        description: "Sales CRM, Service CRM, and Marketing for one user each month.",
+      },
+      {
+        "@type": "Offer",
+        name: "Website",
+        price: String(content.pricing.websitePrice),
+        priceCurrency: "USD",
+        description: "The public website, billed once each month.",
+      },
+      {
+        "@type": "Offer",
+        name: "Additional rooftop",
+        price: String(content.pricing.additionalRooftopPrice),
+        priceCurrency: "USD",
+        description: "Each rooftop after the first, each month. The first rooftop is included.",
       },
     ],
   };
@@ -152,17 +161,20 @@ export function faqJsonLd(content: SiteContent) {
 }
 
 export function llmsText(content: SiteContent) {
-  const separate = separatePrice(content);
   return [
     `# ${siteName}`,
     "",
-    `${siteName} is software for marine dealerships.`,
+    `${siteName} is software for dealerships.`,
     "",
     content.promise,
     "",
-    "Modules for sale, priced per rooftop per month:",
-    ...content.modules.map((module) => `- ${module.name}: ${money(module.price)}. ${module.definition}`),
-    `- ${bundle.name} bundle (all four): ${money(content.bundlePrice)} per month (${money(separate)} if bought separately).`,
+    "Pricing, billed monthly:",
+    `- Sales and service access: ${money(content.pricing.userPrice)} per user. Marketing is included. One person is not billed twice.`,
+    `- Website: ${money(content.pricing.websitePrice)} per month.`,
+    `- Additional rooftop: ${money(content.pricing.additionalRooftopPrice)} per month. The first rooftop is included.`,
+    "",
+    "Modules:",
+    ...content.modules.map((module) => `- ${module.name}. ${module.definition}`),
     "",
     content.includedLine,
     "",

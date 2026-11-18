@@ -9,7 +9,7 @@ import { getSiteContent, writeSiteContent, type SiteContent } from "@/lib/conten
 import { EDITOR_COOKIE, adminPassword, editorEnabled, editorToken } from "@/lib/editor/session";
 
 const fieldPattern =
-  /^(promise|lede|includedLine|annualNote|contactEmail|bundlePrice|dealershipOs\.(name|definition|body)|modules\.[a-z0-9-]+\.(name|navLabel|price|definition|story|features)|faqs\.\d+\.(question|answer))$/;
+  /^(promise|lede|includedLine|annualNote|contactEmail|pricing\.(userPrice|websitePrice|additionalRooftopPrice)|dealershipOs\.(name|definition|body)|modules\.[a-z0-9-]+\.(name|navLabel|price|definition|story|features)|faqs\.\d+\.(question|answer))$/;
 
 function applyField(content: SiteContent, field: string, raw: string) {
   const value = raw.trim();
@@ -18,8 +18,11 @@ function applyField(content: SiteContent, field: string, raw: string) {
   else if (field === "includedLine") content.includedLine = value;
   else if (field === "annualNote") content.annualNote = value;
   else if (field === "contactEmail") content.contactEmail = value;
-  else if (field === "bundlePrice") content.bundlePrice = Number(value);
-  else if (field.startsWith("dealershipOs.")) {
+  else if (field.startsWith("pricing.")) {
+    const key = field.slice("pricing.".length) as keyof SiteContent["pricing"];
+    if (!(key in content.pricing)) return false;
+    content.pricing[key] = Number(value);
+  } else if (field.startsWith("dealershipOs.")) {
     const key = field.slice("dealershipOs.".length) as "name" | "definition" | "body";
     content.dealershipOs[key] = value;
   } else if (field.startsWith("modules.")) {
@@ -76,8 +79,10 @@ export async function saveContentField(field: string, rawValue: string) {
   if (rawValue.trim().length > 4000) return { ok: false as const, error: "That text is too long." };
   const content = await getSiteContent();
   if (!applyField(content, field, rawValue)) return { ok: false as const, error: "That field cannot be edited." };
-  if (field.endsWith(".price") || field === "bundlePrice") {
-    const amount = field === "bundlePrice" ? content.bundlePrice : content.modules.find((item) => field.includes(item.slug))?.price;
+  if (field.endsWith(".price") || field.startsWith("pricing.")) {
+    const amount = field.startsWith("pricing.")
+      ? content.pricing[field.slice("pricing.".length) as keyof SiteContent["pricing"]]
+      : content.modules.find((item) => field.includes(item.slug))?.price;
     if (!amount || Number.isNaN(amount) || amount < 0) return { ok: false as const, error: "Enter a price in dollars." };
   }
   await writeSiteContent(content);

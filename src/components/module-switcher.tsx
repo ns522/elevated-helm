@@ -1,8 +1,8 @@
 "use client";
 
-import type { Module } from "@/content/site";
+import type { Module, Pricing } from "@/content/site";
+import { ModulePrice } from "@/components/module-price";
 import { ProductStage } from "@/components/product-stage";
-import { money } from "@/lib/money";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -10,7 +10,13 @@ export type SwitcherModule = Module & { shots: string[] };
 
 const tourMs = 4800;
 
-export function ModuleSwitcher({ modules }: { modules: readonly SwitcherModule[] }) {
+export function ModuleSwitcher({
+  modules,
+  pricing,
+}: {
+  modules: readonly SwitcherModule[];
+  pricing: Pricing;
+}) {
   const [slug, setSlug] = useState(modules[0]?.slug ?? "");
   const [playing, setPlaying] = useState(true);
   const active = modules.find((module) => module.slug === slug) ?? modules[0];
@@ -70,15 +76,11 @@ export function ModuleSwitcher({ modules }: { modules: readonly SwitcherModule[]
       </div>
       <div key={active.slug} className="swap mt-8 grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
-          <p
+          <ModulePrice
+            billing={active.billing}
+            pricing={pricing}
             className="text-sm tabular-nums text-muted"
-            data-edit-path={`modules.${active.slug}.price`}
-            data-edit-kind="number"
-            data-edit-value={String(active.price)}
-          >
-            {money(active.price)}
-            <span> per rooftop / month</span>
-          </p>
+          />
           <h3
             className="mt-2 font-serif text-4xl tracking-tight"
             data-edit-path={`modules.${active.slug}.name`}

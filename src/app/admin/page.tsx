@@ -1,3 +1,4 @@
+import { siteName } from "@/content/site";
 import { enterLiveEditor, signIn } from "@/lib/editor/actions";
 import { editorEnabled } from "@/lib/editor/session";
 
@@ -11,7 +12,7 @@ export default async function AdminPage({
 
   return (
     <section className="mx-auto max-w-xl px-6 py-20">
-      <p className="text-sm font-medium text-accent">Elevated Helm</p>
+      <p className="text-sm font-medium text-accent">{siteName}</p>
       <h1 className="mt-3 font-serif text-5xl tracking-tight">Edit the live site</h1>
       <p className="mt-4 text-muted">
         Open the public site and click a headline, price, or photo. Saved changes replace the text and screenshots on the pages.

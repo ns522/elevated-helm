@@ -1,5 +1,6 @@
 import { Editable } from "@/components/editor/editable";
-import { PriceTag, quietButtonClass } from "@/components/chrome";
+import { quietButtonClass } from "@/components/chrome";
+import { ModulePrice } from "@/components/module-price";
 import { ProductStage } from "@/components/product-stage";
 import { getSiteContent } from "@/lib/content/load";
 import type { Metadata } from "next";
@@ -54,12 +55,12 @@ export default async function ModulePage({
           {content.includedLine}
         </Editable>
       </p>
-      <p className="mt-8 text-lg">
-        <Editable path={`modules.${product.slug}.price`} kind="number" value={String(product.price)}>
-          <PriceTag amount={product.price} />
-        </Editable>
-        <span className="text-sm text-muted"> per rooftop, each month</span>
-      </p>
+      <ModulePrice billing={product.billing} pricing={content.pricing} className="mt-8 text-lg" />
+      {product.billing === "user" ? (
+        <p className="mt-2 max-w-2xl text-sm text-muted">
+          One user gets sales and service. The same person is not billed twice.
+        </p>
+      ) : null}
       <ul
         className="mt-10 grid gap-3 sm:grid-cols-2"
         data-edit-path={`modules.${product.slug}.features`}

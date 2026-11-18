@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const salesRows = [
-  { name: "New lead", detail: "Center console", hot: true },
-  { name: "Quote sent", detail: "Pontoon", hot: false },
+  { name: "New lead", detail: "Showroom", hot: true },
+  { name: "Quote sent", detail: "In stock", hot: false },
   { name: "Appraisal", detail: "Trade-in", hot: false },
   { name: "Event guest", detail: "Open house", hot: false },
 ];
@@ -46,7 +46,7 @@ export function ProductStage({
         <Image
           key={shot}
           src={shot}
-          alt={`${name} in Elevated Helm`}
+          alt={`${name} in DealerAgent`}
           fill
           sizes="(min-width: 1024px) 720px, 100vw"
           className="swap object-cover object-top"
@@ -97,7 +97,7 @@ function SalesBoard() {
       <div className="flex flex-col justify-between rounded-2xl bg-ink p-4 text-white">
         <p className="text-[10px] tracking-[0.14em] text-white/60 uppercase">Quote</p>
         <div>
-          <p className="text-sm">24 ft center console</p>
+          <p className="text-sm">In-stock unit</p>
           <p className="mt-2 font-serif text-3xl tracking-tight">On the desk</p>
         </div>
       </div>
@@ -107,9 +107,9 @@ function SalesBoard() {
 
 function ServiceBoard() {
   const columns = [
-    { title: "Request", cards: ["Spring service", "Detail"] },
-    { title: "Estimate", cards: ["Gelcoat"] },
-    { title: "Board", cards: ["Oil service", "Impeller"] },
+    { title: "Request", cards: ["Inspection", "Detail"] },
+    { title: "Estimate", cards: ["Repair"] },
+    { title: "Board", cards: ["Oil service", "Diagnostic"] },
   ];
 
   return (
@@ -168,15 +168,15 @@ function WebsiteBoard() {
   return (
     <div className="grid h-full grid-cols-3 grid-rows-2 gap-2">
       <div className="col-span-2 row-span-2 flex flex-col justify-end rounded-2xl bg-frame p-4">
-        <p className="text-[10px] tracking-[0.14em] text-accent uppercase">Find my boat</p>
+        <p className="text-[10px] tracking-[0.14em] text-accent uppercase">Search inventory</p>
         <p className="mt-1 font-serif text-2xl tracking-tight">Inventory</p>
       </div>
       <div className="rounded-2xl bg-bg p-3 text-xs">
         <p className="text-muted">Event</p>
-        <p className="mt-1 font-medium">Dock party</p>
+        <p className="mt-1 font-medium">Open house</p>
       </div>
       <div className="rounded-2xl bg-ink p-3 text-xs text-white">
-        <p className="text-white/60">Pro shop</p>
+        <p className="text-white/60">Parts</p>
         <p className="mt-1">Live</p>
       </div>
     </div>
