@@ -7,6 +7,7 @@ const demoLoginUrl = "https://elevatedhelm.app";
 
 export async function SiteHeader() {
   const content = await getSiteContent();
+  const navModules = content.modules.map(({ slug, navLabel }) => ({ slug, navLabel }));
   return (
     <header className="border-b border-line">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
@@ -14,7 +15,7 @@ export async function SiteHeader() {
           {siteName}
         </Link>
         <NavLinks
-          modules={content.modules}
+          modules={navModules}
           className="hidden items-center gap-5 text-sm md:flex"
         />
         <div className="flex items-center gap-3">
@@ -24,7 +25,7 @@ export async function SiteHeader() {
           <Link href="/#demo" className={buttonClass}>
             Request a demo
           </Link>
-          <Menu modules={content.modules} />
+          <Menu modules={navModules} />
         </div>
       </div>
     </header>

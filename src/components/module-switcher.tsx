@@ -121,7 +121,13 @@ export function ModuleSwitcher({
             See {active.name}
           </Link>
         </div>
-        <ProductStage slug={active.slug} name={active.name} shots={active.shots} />
+        <ProductStage
+          slug={active.slug}
+          name={active.name}
+          shots={active.shots}
+          autoCycle={false}
+          onInteract={() => setPlaying(false)}
+        />
       </div>
     </div>
   );

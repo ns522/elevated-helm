@@ -1,5 +1,6 @@
 "use client";
 
+import { shotCaption } from "@/lib/shot-captions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -14,59 +15,144 @@ export function ProductStage({
   slug,
   name,
   shots,
+  editPath,
+  autoCycle = false,
+  onInteract,
 }: {
   slug: string;
   name: string;
   shots: string[];
+  editPath?: string;
+  autoCycle?: boolean;
+  onInteract?: () => void;
 }) {
-  const [index, setIndex] = useState(0);
-  const shot = shots[index] ?? shots[0];
+  const [state, setState] = useState({ slug, index: 0, paused: false });
+  const resolvedEditPath = editPath ?? `modules.${slug}.shots`;
+  const activeIndex =
+    state.slug === slug && state.index < shots.length ? state.index : 0;
+  const isPaused = state.slug === slug ? state.paused : false;
+  const shot = shots[activeIndex] ?? shots[0];
 
   useEffect(() => {
-    setIndex(0);
-  }, [slug]);
-
-  useEffect(() => {
-    if (shots.length < 2) return;
+    if (!autoCycle || isPaused || shots.length < 2) return;
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (media.matches) return;
     const id = window.setInterval(() => {
-      setIndex((current) => (current + 1) % shots.length);
+      setState((current) => {
+        const base =
+          current.slug === slug && current.index < shots.length
+            ? current.index
+            : 0;
+        return { slug, index: (base + 1) % shots.length, paused: false };
+      });
     }, 4200);
     return () => window.clearInterval(id);
-  }, [shots]);
+  }, [autoCycle, isPaused, shots.length, slug]);
+
+  function selectShot(nextIndex: number) {
+    setState({ slug, index: nextIndex, paused: true });
+    onInteract?.();
+  }
+
+  function stepShot(delta: -1 | 1) {
+    if (shots.length < 2) return;
+    const nextIndex = (activeIndex + delta + shots.length) % shots.length;
+    setState({ slug, index: nextIndex, paused: true });
+    onInteract?.();
+  }
 
   return (
-    <div
-      className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-line bg-surface shadow-[0_24px_60px_-36px_rgba(36,81,245,0.45)]"
-      data-edit-path={`modules.${slug}.shots`}
-      data-edit-media="true"
-    >
-      {shot ? (
-        <Image
-          key={shot}
-          src={shot}
-          alt={`${name} in DealerAgent`}
-          fill
-          sizes="(min-width: 1024px) 720px, 100vw"
-          className="swap object-cover object-top"
-        />
-      ) : (
-        <div className="flex h-full flex-col">
-          <div className="flex items-center gap-2 border-b border-line px-4 py-3">
-            <span className="size-2 rounded-full bg-line" />
-            <span className="size-2 rounded-full bg-line" />
-            <span className="size-2 rounded-full bg-line" />
-            <span className="ml-2 text-xs text-muted">{name}</span>
-            <span className="ml-auto text-[10px] font-medium tracking-[0.14em] text-accent uppercase">
-              Preview
-            </span>
+    <div>
+      <div
+        className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-line bg-[#0e1116] shadow-[0_24px_60px_-36px_rgba(36,81,245,0.45)]"
+        data-edit-path={resolvedEditPath}
+        data-edit-media="true"
+      >
+        {shot ? (
+          <Image
+            key={shot}
+            src={shot}
+            alt={`${name} — ${shotCaption(shot, activeIndex)}`}
+            fill
+            sizes="(min-width: 1024px) 1024px, 100vw"
+            className="swap object-contain"
+          />
+        ) : (
+          <div className="flex h-full flex-col bg-surface">
+            <div className="flex items-center gap-2 border-b border-line px-4 py-3">
+              <span className="size-2 rounded-full bg-line" />
+              <span className="size-2 rounded-full bg-line" />
+              <span className="size-2 rounded-full bg-line" />
+              <span className="ml-2 text-xs text-muted">{name}</span>
+              <span className="ml-auto text-[10px] font-medium tracking-[0.14em] text-accent uppercase">
+                Preview
+              </span>
+            </div>
+            <div key={slug} className="swap min-h-0 flex-1 p-4">
+              <StageBody slug={slug} />
+            </div>
           </div>
-          <div key={slug} className="swap min-h-0 flex-1 p-4">
-            <StageBody slug={slug} />
+        )}
+      </div>
+
+      {shots.length > 1 ? (
+        <div
+          className="mt-3 flex flex-wrap items-center justify-between gap-2"
+          role="group"
+          aria-label={`${name} views`}
+          onKeyDown={(event) => {
+            if (event.key === "ArrowLeft") {
+              event.preventDefault();
+              stepShot(-1);
+            } else if (event.key === "ArrowRight") {
+              event.preventDefault();
+              stepShot(1);
+            }
+          }}
+        >
+          <div className="flex flex-wrap items-center gap-1.5">
+            {shots.map((src, idx) => {
+              const selected = idx === activeIndex;
+              return (
+                <button
+                  key={src}
+                  type="button"
+                  aria-pressed={selected}
+                  onClick={() => selectShot(idx)}
+                  className={`rounded-full border px-3 py-1.5 text-xs transition ${
+                    selected
+                      ? "border-accent bg-frame font-medium text-ink"
+                      : "border-line bg-surface text-muted hover:border-accent"
+                  }`}
+                >
+                  {shotCaption(src, idx)}
+                </button>
+              );
+            })}
+          </div>
+          <div className="ml-auto flex items-center gap-1.5">
+            <span className="px-1 text-xs tabular-nums text-muted" aria-live="polite">
+              {activeIndex + 1} / {shots.length}
+            </span>
+            <button
+              type="button"
+              onClick={() => stepShot(-1)}
+              aria-label="Previous view"
+              className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs font-medium text-ink transition hover:border-accent"
+            >
+              Prev
+            </button>
+            <button
+              type="button"
+              onClick={() => stepShot(1)}
+              aria-label="Next view"
+              className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs font-medium text-ink transition hover:border-accent"
+            >
+              Next
+            </button>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

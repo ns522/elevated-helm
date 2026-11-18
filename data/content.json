@@ -1,7 +1,7 @@
 {
   "promise": "Run your dealership from one system.",
-  "lede": "Sales and service are one price per user. Add the website, a rooftop for each extra store, or the AI agents for the whole account.",
-  "includedLine": "Each user includes customers, the units they own, a calendar, and tasks.",
+  "lede": "Sales, service, and marketing share one $99 user seat. Add the public website, add extra rooftops as you grow, and turn on six human-approved AI agents for the whole store.",
+  "includedLine": "Every user seat includes shared customer and unit records, two-way SMS and call logs, master search, a dealership calendar, tasks, payments, and scorecards.",
   "annualNote": "Annual billing is ten months of the monthly price. Two months are included.",
   "contactEmail": "hello@elevatedhelm.com",
   "pricing": {
@@ -9,113 +9,5 @@
     "websitePrice": 399,
     "additionalRooftopPrice": 299,
     "agentPrice": 299
-  },
-  "modules": [
-    {
-      "slug": "sales-crm",
-      "name": "Sales CRM",
-      "navLabel": "Sales",
-      "billing": "user",
-      "price": 99,
-      "definition": "Sales CRM is the path from a new lead to a sold unit: inventory, quotes, and the customers you already know.",
-      "story": "Work a lead through the inventory, a quote, and the close. The customer record keeps every unit they have owned beside the deal.",
-      "features": [
-        "Leads",
-        "Inventory",
-        "Desking and quotes",
-        "Appraisals",
-        "Consignments and trades",
-        "Events",
-        "Customers and the units they own"
-      ],
-      "shots": [
-        "/shots/sales-crm-1790459929914.png",
-        "/shots/sales-crm.png"
-      ]
-    },
-    {
-      "slug": "service-crm",
-      "name": "Service CRM",
-      "navLabel": "Service",
-      "billing": "user",
-      "price": 99,
-      "definition": "Service CRM runs the service lane: requests, estimates your customer can approve, and the work on the board.",
-      "story": "Take a request, send an estimate the owner can approve, and keep the day visible on the tech workboard.",
-      "features": [
-        "Requests and appointments",
-        "Estimates with customer approval",
-        "Tech workboard",
-        "Follow-ups and reminders",
-        "Forms"
-      ],
-      "shots": [
-        "/shots/service-crm-1790459988833.png"
-      ]
-    },
-    {
-      "slug": "marketing",
-      "name": "Marketing",
-      "navLabel": "Marketing",
-      "billing": "included",
-      "price": 99,
-      "definition": "Marketing keeps the brand, the ads, and the social plan in the same place as the inventory and the events.",
-      "story": "Write the brand once, then plan ads and social posts around the inventory and events already on the floor.",
-      "features": [
-        "Brand book",
-        "Ads",
-        "Social planning and scheduling",
-        "Event campaigns"
-      ],
-      "shots": [
-        "/shots/marketing-1790460044373.png"
-      ]
-    },
-    {
-      "slug": "website",
-      "name": "Website",
-      "navLabel": "Website",
-      "billing": "flat",
-      "price": 399,
-      "definition": "Website is the public site for your inventory, events, and parts counter, and it sends new leads back into DealerAgent.",
-      "story": "Publish the inventory, the events, and the parts counter. Inventory search and the lead forms bring the next conversation back to the store.",
-      "features": [
-        "Public inventory",
-        "Lead forms",
-        "Event pages",
-        "Parts counter",
-        "Inventory search"
-      ],
-      "shots": [
-        "/shots/website.png",
-        "/shots/website-events.png"
-      ]
-    }
-  ],
-  "dealershipOs": {
-    "name": "Dealership OS",
-    "definition": "Dealership OS is the full store: the sales floor, the service lane, and the books, in one system.",
-    "body": "The four modules cover how you sell, how you service, how you market, and the site customers see. The operating system is the rest of the rooftop, including parts and the books. It is coming soon and is not for sale yet."
-  },
-  "faqs": [
-    {
-      "question": "Who is DealerAgent for?",
-      "answer": "Dealerships. The modules cover sales, service, marketing, and the public website."
-    },
-    {
-      "question": "How does pricing work?",
-      "answer": "Sales and service access is $99 per user each month, and marketing is included. The website is $399 a month. Each rooftop after the first is $299 a month. The AI agents add-on is $299 a month for the whole account."
-    },
-    {
-      "question": "What do the AI agents do?",
-      "answer": "Sally quotes, Sven drafts the repair order, Karen writes the customer message, Jim cites exceptions for the general manager, Ed answers from approved policy, and Manny counts leads and sales by model. They share one case. A person approves a change before it is saved or sent."
-    },
-    {
-      "question": "Is the dealership operating system available?",
-      "answer": "Dealership OS is coming soon and is not for sale yet."
-    },
-    {
-      "question": "How does annual billing work?",
-      "answer": "Annual billing is ten months of the monthly price. Two months are included."
-    }
-  ]
+  }
 }

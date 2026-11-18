@@ -53,8 +53,9 @@ export function Menu({
 }: {
   modules: readonly Pick<Module, "slug" | "navLabel">[];
 }) {
+  const pathname = usePathname();
   return (
-    <details className="relative md:hidden">
+    <details key={pathname} className="relative md:hidden">
       <summary className="cursor-pointer list-none rounded-full border border-line bg-surface px-4 py-2 text-sm [&::-webkit-details-marker]:hidden">
         Menu
       </summary>

@@ -3,9 +3,10 @@ import { Geist, Instrument_Serif } from "next/font/google";
 import { LiveEditor } from "@/components/editor/live-editor";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { pricing, siteName } from "@/content/site";
-import { money } from "@/lib/money";
+import { siteName } from "@/content/site";
+import { getSiteContent } from "@/lib/content/load";
 import { editorEnabled } from "@/lib/editor/session";
+import { money } from "@/lib/money";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,14 +20,16 @@ const instrument = Instrument_Serif({
   weight: "400",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: siteName,
-    template: `%s · ${siteName}`,
-  },
-  description:
-    `${siteName} is software for dealerships. Buy Sales CRM, Service CRM, Marketing, and Website. The AI agents add-on is ${money(pricing.agentPrice)} a month. The full dealership operating system is coming soon.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getSiteContent();
+  return {
+    title: {
+      default: siteName,
+      template: `%s · ${siteName}`,
+    },
+    description: `${siteName} is software and human-approved AI management for dealerships. Sales CRM, Service CRM, and Marketing share one ${money(content.pricing.userPrice)}/month user seat, Website is ${money(content.pricing.websitePrice)}/month, and the ${content.agents.name} add-on is ${money(content.pricing.agentPrice)}/month flat for the account.`,
+  };
+}
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const editing = await editorEnabled();

@@ -13,6 +13,7 @@ export function DemoForm({
   defaultOs = false,
   agentName = "AI agents",
   defaultAgent = false,
+  defaultModule,
   sourcePath,
 }: {
   modules: readonly Pick<Module, "slug" | "name">[];
@@ -22,6 +23,7 @@ export function DemoForm({
   defaultOs?: boolean;
   agentName?: string;
   defaultAgent?: boolean;
+  defaultModule?: string;
   sourcePath: string;
 }) {
   const [state, action, pending] = useActionState(
@@ -68,7 +70,13 @@ export function DemoForm({
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           {modules.map((module) => (
             <label key={module.slug} className="flex items-center gap-2 text-sm">
-              <input type="checkbox" name="interest" value={module.name} className="size-4 accent-[var(--accent)]" />
+              <input
+                type="checkbox"
+                name="interest"
+                value={module.name}
+                defaultChecked={module.name === defaultModule}
+                className="size-4 accent-[var(--accent)]"
+              />
               {module.name}
             </label>
           ))}
@@ -98,7 +106,7 @@ export function DemoForm({
         <button type="submit" className={buttonClass} disabled={pending}>
           {pending ? "Sending…" : submitLabel}
         </button>
-        {state?.ok ? <p className="mt-3 text-sm text-muted">Thanks. We'll be in touch.</p> : null}
+        {state?.ok ? <p className="mt-3 text-sm text-muted">Thanks. We&apos;ll be in touch.</p> : null}
         {state?.error ? <p className="mt-3 text-sm text-muted">{state.error}</p> : null}
       </div>
     </form>
