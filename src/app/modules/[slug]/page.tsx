@@ -1,6 +1,7 @@
 import { buttonClass, quietButtonClass } from "@/components/chrome";
 import { DemoForm } from "@/components/demo-form";
 import { Editable } from "@/components/editor/editable";
+import { MobileShowcase } from "@/components/mobile-showcase";
 import { ModulePrice } from "@/components/module-price";
 import { ProductStage } from "@/components/product-stage";
 import { agents as defaultAgents } from "@/content/site";
@@ -76,7 +77,7 @@ export default async function ModulePage({
           <ModulePrice billing={product.billing} pricing={content.pricing} className="mt-8 text-lg" />
           {product.billing === "user" ? (
             <p className="mt-2 max-w-2xl text-sm text-muted">
-              One {money(content.pricing.userPrice)} user seat includes Sales CRM, Service CRM, and
+              One {money(content.pricing.userPrice)} user seat includes Sales Module, Service Module, and
               Marketing — the same employee is never billed twice.
             </p>
           ) : null}
@@ -123,6 +124,32 @@ export default async function ModulePage({
                 </li>
               ))}
             </ul>
+          </div>
+        </section>
+
+        <section className="border-t border-line bg-surface" aria-labelledby="module-mobile-heading">
+          <div className="mx-auto max-w-6xl px-6 py-20">
+            <p className="text-sm font-medium text-accent">Mobile &amp; tablet ready</p>
+            <h2 id="module-mobile-heading" className="mt-3 font-serif text-3xl tracking-tight sm:text-4xl">
+              Works on phones and tablets across the dealership
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
+              Switch between desktop monitors, showroom iPads, and lot or service-lane phones without losing
+              features or context.
+            </p>
+            <div className="mt-8">
+              <MobileShowcase
+                initialScene={
+                  product.slug === "service-crm"
+                    ? "checkin"
+                    : product.slug === "sales-crm"
+                      ? "ipad-fi"
+                      : product.slug === "website"
+                        ? "website-mobile"
+                        : "floor-phone"
+                }
+              />
+            </div>
           </div>
         </section>
 

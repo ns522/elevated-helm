@@ -219,7 +219,7 @@ export function softwareJsonLd(content: SiteContent) {
         name: "Sales, service, and marketing access",
         price: String(content.pricing.userPrice),
         priceCurrency: "USD",
-        description: "Sales CRM, Service CRM, Marketing, and shared core tools for one user each month. First rooftop included.",
+        description: "Sales Module, Service Module, Marketing, and shared core tools for one user each month. First rooftop included.",
       },
       {
         "@type": "Offer",

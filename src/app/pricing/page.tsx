@@ -49,15 +49,15 @@ export default async function PricingPage() {
                 <span className="text-sm text-muted"> per user / month</span>
               </p>
               <p className="mt-4 text-sm leading-6 text-muted">
-                One employee gets Sales CRM, Service CRM, Marketing, and all shared core tools — never billed twice across departments, with your first rooftop included.
+                One employee gets Sales Module, Service Module, Marketing, lifetime Customer &amp; Unit Files, and full phone and tablet access — never billed twice across departments, with your first rooftop included.
               </p>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 text-sm font-medium">
               <Link href="/modules/sales-crm" className="text-accent">
-                See Sales CRM
+                See Sales Module
               </Link>
               <Link href="/modules/service-crm" className="text-accent">
-                See Service CRM
+                See Service Module
               </Link>
               <Link href="/modules/marketing" className="text-accent">
                 See Marketing
@@ -286,7 +286,7 @@ export default async function PricingPage() {
                     {money(content.pricing.additionalRooftopPrice)} / month
                   </td>
                   <td className="py-4 text-muted">
-                    First rooftop included. Add extra dealership locations with shared customer files, inventory visibility, and account-wide AI agents.
+                    First rooftop included. Add extra dealership locations with shared Customer &amp; Unit Files, inventory visibility, and account-wide AI agents.
                   </td>
                 </tr>
                 <tr className="align-top">

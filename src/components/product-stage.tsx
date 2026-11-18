@@ -1,6 +1,6 @@
 "use client";
 
-import { shotCaption } from "@/lib/shot-captions";
+import { shotCaption, shotDevice } from "@/lib/shot-captions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -27,11 +27,13 @@ export function ProductStage({
   onInteract?: () => void;
 }) {
   const [state, setState] = useState({ slug, index: 0, paused: false });
+  const [detectedPhones, setDetectedPhones] = useState<Record<string, boolean>>({});
   const resolvedEditPath = editPath ?? `modules.${slug}.shots`;
   const activeIndex =
     state.slug === slug && state.index < shots.length ? state.index : 0;
   const isPaused = state.slug === slug ? state.paused : false;
   const shot = shots[activeIndex] ?? shots[0];
+  const isPhone = shot ? shotDevice(shot) === "phone" || Boolean(detectedPhones[shot]) : false;
 
   useEffect(() => {
     if (!autoCycle || isPaused || shots.length < 2) return;
@@ -69,14 +71,40 @@ export function ProductStage({
         data-edit-media="true"
       >
         {shot ? (
-          <Image
-            key={shot}
-            src={shot}
-            alt={`${name} — ${shotCaption(shot, activeIndex)}`}
-            fill
-            sizes="(min-width: 1024px) 1024px, 100vw"
-            className="swap object-contain"
-          />
+          isPhone ? (
+            <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_50%_20%,#1e3a8a_0%,#0b1120_70%)] p-3 sm:p-5">
+              <span className="absolute top-3 left-4 hidden rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-medium text-white/85 sm:inline-flex">
+                Phone &amp; tablet ready
+              </span>
+              <div className="relative h-full aspect-[1170/2159] overflow-hidden rounded-[1.75rem] border-[5px] border-[#263248] bg-[#0b1320] shadow-2xl">
+                <Image
+                  key={shot}
+                  src={shot}
+                  alt={`${name} — ${shotCaption(shot, activeIndex)}`}
+                  fill
+                  priority
+                  sizes="360px"
+                  className="swap object-cover object-top"
+                />
+              </div>
+            </div>
+          ) : (
+            <Image
+              key={shot}
+              src={shot}
+              alt={`${name} — ${shotCaption(shot, activeIndex)}`}
+              fill
+              priority
+              sizes="(min-width: 1024px) 1024px, 100vw"
+              className="swap object-contain"
+              onLoad={(event) => {
+                const img = event.currentTarget;
+                if (img.naturalHeight > 0 && img.naturalWidth / img.naturalHeight < 0.65) {
+                  setDetectedPhones((prev) => (prev[shot] ? prev : { ...prev, [shot]: true }));
+                }
+              }}
+            />
+          )
         ) : (
           <div className="flex h-full flex-col bg-surface">
             <div className="flex items-center gap-2 border-b border-line px-4 py-3">

@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       default: siteName,
       template: `%s · ${siteName}`,
     },
-    description: `${siteName} is software and human-approved AI management for dealerships. Sales CRM, Service CRM, and Marketing share one ${money(content.pricing.userPrice)}/month user seat, Website is ${money(content.pricing.websitePrice)}/month, and the ${content.agents.name} add-on is ${money(content.pricing.agentPrice)}/month flat for the account.`,
+    description: `${siteName} is software and human-approved AI management for dealerships. Sales Module, Service Module, and Marketing share one ${money(content.pricing.userPrice)}/month user seat, Website is ${money(content.pricing.websitePrice)}/month, and the ${content.agents.name} add-on is ${money(content.pricing.agentPrice)}/month flat for the account.`,
   };
 }
 

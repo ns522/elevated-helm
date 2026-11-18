@@ -6,10 +6,10 @@ export const contactEmail = "hello@elevatedhelm.com";
 export const promise = "Run your dealership from one system.";
 
 export const lede =
-  "Sales, service, and marketing share one $99 user seat. Add the public website, add extra rooftops as you grow, and turn on six human-approved AI agents for the whole store.";
+  "Sales, service, and marketing share one $99 user seat — built for desktops, tablets, and phones across the lot and service lane. Add the public website, extra rooftops, or six human-approved AI agents.";
 
 export const includedLine =
-  "Every user seat includes shared customer and unit records, two-way SMS and call logs, master search, a dealership calendar, tasks, payments, and scorecards.";
+  "Every user seat includes lifetime Customer & Unit Files, two-way SMS and call logs, a unified appointment calendar, master search, tasks, payments, and full phone & tablet access.";
 
 export const annualNote =
   "Annual billing is ten months of the monthly price. Two months are included.";
@@ -94,20 +94,20 @@ export function quoteMonthly(
 
 export const sharedCore = [
   {
-    title: "3-column customer & unit history",
-    body: "Sales deals, service repair orders, and every conversation sit side by side on one profile. Spouse and co-owner accounts link cleanly, duplicate files merge without losing history, and owned units keep their full service timeline when sold to a new owner.",
+    title: "Lifetime Customer & Unit Files",
+    body: "Sales deals, service repair orders, and every conversation sit side by side on a 3-column customer profile with spouse and co-owner household linking. Every VIN/HIN/serial gets a permanent Unit File holding 5-slot walkaround photos, Primary / Co-Owner / Previous owner timelines that preserve service history across resales, serial and key codes, warranty dates, and saved-for-later jobs.",
   },
   {
-    title: "Shared two-way SMS, MMS & call logs",
-    body: "Text customers across department numbers, run group MMS threads with co-buyers and advisors, play call recordings with AI transcripts inside the timeline, and keep a live response wallboard on the floor.",
+    title: "Guided arrival check-in on every visit",
+    body: "Every boat or unit arriving for service goes through the same phone-and-tablet check-in walkthrough: 5 canonical walkaround photo slots (reusing primary photos on return visits), fuel/hours/key verification, multi-point condition checks requiring photos and notes on any issue, and live OEM service bulletin matching.",
   },
   {
-    title: "Master ⌘K search, calendar & routines",
-    body: "Jump straight to any customer, VIN/HIN/serial, stock unit, quote, or repair order. A shared calendar layers demos, deliveries, service drop-offs, mobile techs, and staff meetings alongside daily task cadences.",
+    title: "Appointment calendar, two-way SMS & call logs",
+    body: "Color-coded Month, Week, and Mobile Day calendars layer drop-offs, pick-ups, mobile service, demos, deliveries, and staff time off — with 1-tap missed-appointment reschedule texts, shared SMS/MMS lines, group co-buyer threads, and call recordings with AI transcripts.",
   },
   {
-    title: "Payments, review recovery & scorecards",
-    body: "Send Stripe deposit or invoice links by text or QR code. Post-visit surveys send 4–5 star owners to Google Reviews and route 1–3 star feedback into a manager recovery queue before it goes public.",
+    title: "Native-feel phone & tablet workflows",
+    body: "Staff switch seamlessly between desktop monitors, showroom iPads, and lot or shop phones with dedicated mobile layouts, pinned bottom navigation, camera VIN/HIN capture, Stripe QR/SMS payment links, and post-visit review recovery.",
   },
 ] as const satisfies readonly WorkflowBlock[];
 
@@ -247,80 +247,88 @@ export const agents = {
 export const modules = [
   {
     slug: "sales-crm",
-    name: "Sales CRM",
+    name: "Sales Module",
     navLabel: "Sales",
     billing: "user",
     price: 99,
     definition:
-      "Sales CRM takes a buyer from first inquiry to funded delivery: lead routing, major-unit inventory, PIN-protected Quick Quotes, 4-square desking, F&I menus, appraisals, consignments, and events.",
+      "Sales Module takes a buyer from first inquiry to funded delivery — on desktop, showroom tablet, or lot phone — with lead routing, major-unit inventory, PIN-protected Quick Quotes, 4-square desking, F&I menus, appraisals, consignments, and shared Customer & Unit Files.",
     story:
-      "Capture web, phone, ad, and show QR leads without duplicates — repeat inquiries merge onto the existing buyer and wake up dormant files. Price in-stock or custom-order units with confidential dealer costlines, present an interactive 4-square and customer F&I protection menu with true monthly payment math, and track every stipulation through delivery.",
+      "Capture web, phone, ad, and show QR leads without duplicates — repeat inquiries merge onto the existing Customer File and wake up dormant leads. Price in-stock or custom-order units with confidential dealer costlines, hand an iPad across the desk for guided 4-square and F&I protection selection, and transfer sold units cleanly onto the buyer's permanent Unit File.",
     features: [
       "Lead routing, repeat-inquiry merge & Day-1 cadences",
       "Major-unit & bundled package inventory (VIN / HIN / serial)",
       "AI factory build-sheet & invoice PDF extraction",
-      "PIN-protected Quick Quotes & window sticker PDFs",
-      "9-stage 4-Square Desking & customer F&I menu",
+      "PIN-protected Quick Quotes & QR window sticker PDFs",
+      "9-stage 4-Square Desking & tablet Customer F&I menu",
       "Trade appraisals, consignments & service-lane sourcing",
-      "Off-site shows, demo days & QR booth capture",
-      "Customers and the units they own",
+      "Off-site shows, demo days & mobile QR booth capture",
+      "Shared Customer & Unit Files (household, ownership & RO history)",
     ],
     workflows: [
       {
-        title: "Speed-to-lead without duplicate clutter",
-        body: "Website forms, marketplace leads, and booth QR scans route round-robin and schedule a 4-step Day-1 call/text/email cadence (with drafts waiting for human confirmation). Repeat inquiries merge onto the original record, flag 'Submitted again', and revive closed leads on schedule.",
+        title: "Speed-to-lead from desk or lot phone",
+        body: "Website forms, marketplace leads, and booth QR scans route round-robin and schedule a 4-step Day-1 call/text/email cadence (with drafts waiting for human confirmation). Repeat inquiries merge onto the original Customer File, flag 'Submitted again', and revive closed leads on schedule.",
       },
       {
         title: "Inventory, AI build sheets & PIN cost protection",
-        body: "Track new, pre-owned, on-order, and consignment units — including bundled parent/child packages like trailers or attachments. Upload OEM build sheets or invoices to extract options automatically, print QR window stickers, and keep dealer cost locked behind a manager PIN on the showroom floor.",
+        body: "Track new, pre-owned, on-order, and consignment units — including bundled parent/child packages like trailers or outboards/attachments. Upload OEM build sheets or invoices to extract options automatically, print QR window stickers, and keep dealer cost locked behind a manager PIN.",
       },
       {
-        title: "9-stage Desking & customer F&I menu",
-        body: "Move from Quick Quote into a guided Deal Completion workflow: cash vs. finance 4-square with trade equity and payoff math, tablet-friendly Protection & Accessories menu showing exact amortized monthly impact, preflight ID/doc checks, lender stipulations, and service PDI clearance.",
+        title: "9-stage Desking & iPad customer F&I menu",
+        body: "Move from Quick Quote into a guided Deal Completion workflow: cash vs. finance 4-square with trade equity and payoff math, live synced tablet Protection & Accessories menu showing exact amortized monthly impact, preflight ID/doc checks, lender stipulations, and service PDI clearance.",
       },
       {
-        title: "Appraisals, consignments & portfolio sourcing",
-        body: "Build market evaluations from owned units on file, run consignment prep across Sales and Service with digital e-sign contracts, and search past service units for trade-up matches with owner contact details masked until a manager approves outreach.",
+        title: "Customer & Unit Files, trades & consignments",
+        body: "Build trade evaluations directly from the customer's existing Unit File (with prior check-in photos and RO history already attached), run consignment prep across Sales and Service with mobile e-sign contracts, and mine service-lane units with masked PII until a manager approves outreach.",
       },
     ],
     agentRoles: ["Sally", "Manny", "Karen", "Jim"],
   },
   {
     slug: "service-crm",
-    name: "Service CRM",
+    name: "Service Module",
     navLabel: "Service",
     billing: "user",
     price: 99,
     definition:
-      "Service CRM runs the shop and mobile lane: online requests, arrival check-in, mobile photo/video estimate approvals, a distraction-free tech workboard, digital inspections, and automated owner updates.",
+      "Service Module runs the shop, ramp, and mobile lane: guided arrival check-ins on every boat or unit, deep Repair Order detail workspaces, a color-coded appointment calendar, one-tap mobile customer approvals, and a tablet Tech Workboard.",
     story:
-      "Move every customer unit and internal sales PDI across a visual Kanban board with configurable SLA aging timers that turn yellow and red before a job stalls. Text owners a tokenized link to approve or defer individual jobs on their phone, keep deferred work saved for the next visit, and give technicians a clean clock-in, checklist, and video workspace.",
+      "Every unit arriving on the ramp goes through a guided phone-or-tablet check-in that captures walkaround photos, hours, condition, defect photos, and live OEM service bulletins straight onto its permanent Unit File. Advisors work from a complete RO detail page with live customer SMS and @mention internal comms on the right rail, while owners approve or defer jobs from their phone.",
     features: [
+      "Guided Arrival Check-In on every visit (walkaround slots, MPI & bulletins)",
+      "Full RO detail page (10 tabs + right-rail Customer SMS & @mentions)",
+      "Color-coded appointment calendar & 1-tap missed-visit SMS",
+      "Mobile customer estimate approval (approve / decline / defer per job)",
+      "Permanent Unit Files (5-slot photos, multi-owner history & saved jobs)",
       "Shop & mobile Kanban board with SLA aging alerts",
-      "Guided arrival check-in & walkaround media",
-      "Mobile customer estimate approval (approve / defer per job)",
-      "Saved-for-later declined work memory on the unit",
-      "Distraction-free Tech Workboard & labor clock-in",
-      "Digital multi-point inspections & customer report links",
-      "Automated 3-day owner updates & waiting-parts chases",
-      "Internal sales PDI & consignment recon tracking",
+      "Phone & tablet Tech Workboard, labor clocks & video walkarounds",
+      "Automated 3-day owner updates & waiting-parts vendor chases",
     ],
     workflows: [
       {
-        title: "Visual lane control from drop-off to pickup",
-        body: "Track Scheduled, Dropped Off, Checked In, Needs Attention, Invoice Sent, Waiting Parts, Ready to Work, In Progress, Courtesy Clean, and Ready for Pickup — plus a dedicated Mobile Service pipeline. Per-stage hour and shop-day thresholds highlight aging units automatically.",
+        title: "Comprehensive guided check-in on every visit",
+        body: "Every boat or unit gets a structured 3-stage arrival walkthrough on a phone or tablet: verify HIN/VIN/hours/fuel/keys, capture 5 canonical walkaround slots (Port, Starboard, Bow, Stern, Interior — reusing primary photos on return visits with 1-tap accept or retake), require notes and defect photos on any Needs Attention / Critical item, and match live OEM service bulletins before promoting the RO to Checked In.",
       },
       {
-        title: "One-tap mobile estimate approval with photos",
-        body: "Send customers a clean link showing technician photos and itemized jobs. Owners approve, decline, or defer individual lines on their phone; warranty lines show no charge, shop supplies recalculate automatically, and deferred jobs stay pinned to the unit for next season.",
+        title: "Repair Order detail workspace & live right-rail comms",
+        body: "Open any RO to see its visual stage pipeline, days on lot, and 10 instant tabs — Customer & Unit, Appointment Details, Jobs (with Labor, Parts, Form, Warranty, and Job Photos), Labor Time clocked vs. billed, Parts Pick with printable bin tags, Forms, Media, Mobile site/gate codes, Storage, and split Customer/Warranty/Internal Invoicing — beside live Customer SMS and @mention team chat.",
       },
       {
-        title: "Built for technicians, not paperwork",
-        body: "Technicians open a focused workboard showing assigned ROs, multi-point inspection matrices (Good / Needs Attention / Critical with required photos), OEM service bulletins, streaming video walkarounds, and one-tap completion handoff back to the advisor.",
+        title: "Color-coded appointment & lane calendar",
+        body: "Manage Drop-offs, Pick-ups, Mobile Service dispatches, Promised Completion targets, Sales Demos, Deliveries, and Approved Time Off across Month, Week, and touch-friendly Mobile Day views. Past-due arrivals flag automatically with a 1-tap 'Send Missed Text & Mark No-Show' action.",
       },
       {
-        title: "No black-hole repair orders",
-        body: "Recurring 3-day customer update reminders and waiting-parts vendor chases keep advisors ahead of calls, backed by morning digests and end-of-day accountability summaries for service leadership.",
+        title: "One-tap mobile estimate approval & Unit File memory",
+        body: "Text owners a zero-login phone link with technician inspection photos and itemized jobs. Customers tap Approve, Decline, or Defer per line — warranty jobs show No charge, shop supplies recalculate live, and deferred jobs stay pinned to the Unit File's 'Saved for next service' banner for their next visit.",
+      },
+      {
+        title: "Kanban lane control & SLA aging timers",
+        body: "Move customer units and internal sales PDIs across Scheduled, Dropped Off, Checked In, Invoice Sent, Waiting Parts, Ready to Work, In Progress, Courtesy Clean, and Ready for Pickup. Configurable hour and shop-day thresholds highlight aging cards yellow and red before promises slip.",
+      },
+      {
+        title: "Phone & tablet Tech Workboard + 3-day updates",
+        body: "Technicians work from a distraction-free mobile or tablet board: clock in/out of jobs, snap camera photos or streaming walkaround videos, complete inspection matrices, and tap Complete to alert the advisor — backed by automated 3-day owner update reminders and parts-chase queues.",
       },
     ],
     agentRoles: ["Sven", "Karen", "Jim", "Ed"],
@@ -373,9 +381,9 @@ export const modules = [
     definition:
       "Website is your high-converting public storefront — reading the exact same inventory, events, and service intake as your CRM so you never enter a unit twice.",
     story:
-      "Publish new, pre-owned, and certified inventory the moment it is marked web-visible in Sales CRM, with dealer cost stripped at the database layer. Shoppers filter, compare up to three units side by side, estimate payments, chat with an AI shopper assistant that live staff can join, book service with photo uploads, RSVP to events, and buy from the parts counter.",
+      "Publish new, pre-owned, and certified inventory the moment it is marked web-visible in Sales Module, with dealer cost stripped at the database layer. Shoppers filter, compare up to three units side by side on phone or desktop, estimate payments, chat with an AI shopper assistant that live staff can join, book service with photo uploads, RSVP to events, and buy from the parts counter.",
     features: [
-      "Zero-double-entry live inventory sync from Sales CRM",
+      "Zero-double-entry live inventory sync from Sales Module",
       "Instant search workbench, guided unit finder & 3-unit compare",
       "Immersive VDPs with video, 360 views & payment estimator",
       "AI shopper chat with live dealership staff takeover",
@@ -394,7 +402,7 @@ export const modules = [
       },
       {
         title: "Every form lands straight in the right rotation",
-        body: "Hold This Unit, Value My Trade, Request a Demo, Contact Sales, and Financing forms merge directly into Sales CRM leads; Schedule Service uploads owner photos and symptoms straight into the Service Leads inbox.",
+        body: "Hold This Unit, Value My Trade, Request a Demo, Contact Sales, and Financing forms merge directly into Sales Module leads; Schedule Service uploads owner photos and symptoms straight into the Service Module leads inbox.",
       },
       {
         title: "Click-to-edit pages & AI-ready SEO",
@@ -410,24 +418,32 @@ export type ModuleSlug = (typeof modules)[number]["slug"];
 export const dealershipOs = {
   name: "Dealership OS",
   definition:
-    "Dealership OS completes the rooftop: parts counter and barcoding, purchasing, double-entry accounting, lot GPS and floorplan audits, service RFID, and a private dealer-to-dealer inventory exchange.",
-  body: "Sales CRM, Service CRM, Marketing, Website, and AI Agents already run on the canonical Dealership OS customer, unit, and deal model. When the back-office operating system opens for general release, stores upgrade in place with zero data migration.",
+    "Dealership OS is a full-package dealer management system — built-in accounting, links to QuickBooks, Sage 50, and Xero, invoicing, parts ordering and receiving, geofenced timeclock, and payroll in one place.",
+  body: "Run your official books inside DealerAgent or sync cleanly with QuickBooks, Sage 50, Xero, and Lightspeed. Every front-counter module sold today already writes to the same customer, unit, repair order, and deal records, so stores upgrade into the full DMS with zero data migration.",
   pillars: [
     {
-      title: "Parts counter, kits & barcode inventory",
-      body: "Full SKU master with bin locations, printable Code-128 barcode labels, kits, supersession chains, core charge & RMA tracking, walk-in counter tickets, min/max seasonal reorder POs, mobile cycle counts, and special orders linked directly to Service ROs.",
+      title: "Built-in accounting + QuickBooks, Sage 50 & Xero",
+      body: "Use the native double-entry General Ledger as your books of record — complete with departmental P&Ls, Trial Balance, Balance Sheet, AR/AP aging, period close, Profit Plan variance lights, and Plaid/CSV bank reconciliation — or link directly to QuickBooks, Sage 50, Xero, and Lightspeed.",
     },
     {
-      title: "Purchasing, payables & native GL accounting",
-      body: "Major-unit and parts purchase orders, partial/damaged receiving, vendor bills, and a double-entry General Ledger that auto-posts funded deals, RO invoices, counter sales, and Stripe payments across departmental P&Ls — plus Plaid bank feeds, annual Profit Plan variance lights, and QuickBooks, Sage 50, or Lightspeed bridges.",
+      title: "Parts inventory, ordering & receiving",
+      body: "Manage your full SKU master, bin locations, printable barcode labels, kits, supersessions, and core/RMA returns. Generate min/max seasonal reorder POs, receive partial or damaged shipments into stock, lock RO special orders until parts arrive, and run mobile barcode cycle counts.",
     },
     {
-      title: "Lot GPS, floorplan rules & service RFID",
-      body: "Geofenced unit and coupled-trailer tracking reconciles lot movement against scheduled demos and deliveries, triggers immediate accounting payoff tasks when a sold unit departs, automates weekly physical floorplan audits, and tracks customer service dwell time across yard and shop RFID zones.",
+      title: "Invoicing, billing & vendor payables",
+      body: "Bill service repair orders (automatically splitting Customer Pay, Warranty Receivable, and Internal Shop Expense), ring up walk-in parts counter tickets, run recurring storage billing, collect Stripe card/ACH/QR payments, and track vendor bills through payment.",
     },
     {
-      title: "Private dealer-to-dealer inventory exchange",
-      body: "Search and trade wholesale or brand-authorized new units across verified dealerships on the same canonical inventory record. Upload a factory production sheet once, score exact buyer-spec matches with landed transport cost, and keep true dealer cost and unsold leads private.",
+      title: "Geofenced timeclock, overtime & PTO",
+      body: "Track attendance separately from technician RO billing clocks with server-verified GPS geofences, a live clocked-in board, missed clock-out and meal-break compliance prompts, automatic daily and weekly overtime rules, and vacation/sick leave approvals.",
+    },
+    {
+      title: "Payroll, commissions & pay plans",
+      body: "Prepare weekly, biweekly, or bimonthly payroll in one workspace combining hourly and salary timesheets, technician flagged labor hours, spiffs, configurable sales draw/commission plans, and funded-deal commission sign-off.",
+    },
+    {
+      title: "Unit receiving, titles & floorplan control",
+      body: "Track factory unit purchase orders from order to lot arrival, verify MSO, title, and trade lien payoff checklists, post funded deal recaps, monitor lender floorplan curtailments and payoffs, and manage multi-rooftop transfers.",
     },
   ] as const satisfies readonly WorkflowBlock[],
 } as const;
@@ -459,7 +475,7 @@ export const faqs = [
   {
     question: "Is Dealership OS available today?",
     answer:
-      "Parts, purchasing, double-entry accounting, floorplan GPS, and the Dealer Exchange are in final rollout as Dealership OS. Every module sold today already shares the same database foundation, so you can start with Sales, Service, Website, and AI Agents now and turn on Dealership OS later without migrating.",
+      "Dealership OS — our full-package DMS with built-in accounting, QuickBooks/Sage 50/Xero links, invoicing, parts ordering and receiving, geofenced timeclock, and payroll — is in final rollout. Every module sold today already shares the same database foundation, so you can start now and turn on Dealership OS later without migrating.",
   },
   {
     question: "How does annual billing work?",
@@ -485,7 +501,7 @@ export function softwareApplicationJsonLd() {
         name: "Sales, service, and marketing access",
         price: String(pricing.userPrice),
         priceCurrency: "USD",
-        description: "Sales CRM, Service CRM, Marketing, and shared core tools for one user each month. First rooftop included.",
+        description: "Sales Module, Service Module, Marketing, and shared core tools for one user each month. First rooftop included.",
       },
       {
         "@type": "Offer",

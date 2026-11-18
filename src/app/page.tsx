@@ -2,6 +2,7 @@ import { buttonClass, quietButtonClass } from "@/components/chrome";
 import { DemoForm } from "@/components/demo-form";
 import { Editable } from "@/components/editor/editable";
 import { JsonLd } from "@/components/json-ld";
+import { MobileShowcase } from "@/components/mobile-showcase";
 import { ModuleSwitcher } from "@/components/module-switcher";
 import { ProductStage } from "@/components/product-stage";
 import { faqJsonLd, getSiteContent, softwareJsonLd } from "@/lib/content/load";
@@ -79,6 +80,78 @@ export default async function Home() {
               </li>
             ))}
           </ul>
+
+          <div className="mt-8 grid items-center gap-8 rounded-3xl border border-line bg-surface p-6 lg:grid-cols-[1fr_1fr]">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.12em] text-accent uppercase">
+                Customer &amp; Unit Files
+              </p>
+              <h3 className="mt-2 font-serif text-3xl tracking-tight">
+                Every household, every unit, and every check-in in one file
+              </h3>
+              <p className="mt-3 text-sm leading-6 text-muted">
+                Sales history, active and past repair orders, saved-for-later service items, spouse and
+                co-owner SMS threads, and AI call transcripts live together. When a boat or vehicle is sold
+                to a new owner, its 5-slot walkaround gallery, serials, key codes, and check-in history stay
+                intact on the permanent Unit File.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
+                <Link href="/modules/service-crm" className="text-accent">
+                  See Service Module &amp; guided check-in →
+                </Link>
+                <Link href="/modules/sales-crm" className="text-accent">
+                  See Sales Module →
+                </Link>
+              </div>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-line bg-bg p-4">
+                <p className="text-xs font-semibold text-accent uppercase">3-column Customer File</p>
+                <p className="mt-1.5 text-xs leading-5 text-muted">
+                  Sales deals, Service ROs, and Conversations (SMS, email, recorded calls &amp; AI
+                  transcripts) side by side with spouse/partner household links.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-line bg-bg p-4">
+                <p className="text-xs font-semibold text-accent uppercase">5-slot Unit gallery</p>
+                <p className="mt-1.5 text-xs leading-5 text-muted">
+                  Port, Starboard, Bow, Stern &amp; Interior slots plus HIN, Trailer VIN, Engine &amp;
+                  Ignition Code records verified at arrival check-in.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-line bg-bg p-4">
+                <p className="text-xs font-semibold text-accent uppercase">Multi-owner timeline</p>
+                <p className="mt-1.5 text-xs leading-5 text-muted">
+                  Tracks Primary, Co-Owner, and Previous owners — transferring a sold unit preserves its
+                  lifetime check-in and service history without duplicates.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-line bg-bg p-4">
+                <p className="text-xs font-semibold text-accent uppercase">Saved for next service</p>
+                <p className="mt-1.5 text-xs leading-5 text-muted">
+                  Declined or deferred jobs stay pinned to the Unit File and surface automatically the next
+                  time that unit books an appointment.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-line" aria-labelledby="mobile-heading">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <p className="text-sm font-medium text-accent">Phones &amp; tablets</p>
+          <h2 id="mobile-heading" className="mt-3 font-serif text-3xl tracking-tight sm:text-4xl">
+            Built for the service ramp, the lot, and the showroom desk
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
+            Your team is rarely sitting behind a desktop monitor. DealerAgent runs natively in the browser
+            on iPhones, Android phones, and iPads — from camera check-ins and technician workboards to
+            tablet F&amp;I presentations and customer mobile approvals.
+          </p>
+          <div className="mt-8">
+            <MobileShowcase initialScene="floor-phone" />
+          </div>
         </div>
       </section>
 
